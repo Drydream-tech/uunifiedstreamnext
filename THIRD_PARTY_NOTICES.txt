@@ -1,0 +1,25 @@
+UnifiedStreamNext — Third-Party Open Source Notices
+===================================================
+
+UnifiedStreamNext integrates or orchestrates the following upstream open-source projects:
+
+1. Sunshine (https://github.com/LizardByte/Sunshine)
+   Pinned Tag: v2026.914.233613
+   License: GNU General Public License v3.0 (GPL-3.0)
+
+2. Moonlight Qt (https://github.com/moonlight-stream/moonlight-qt)
+   Pinned Tag: v6.2.0 (Commit: de2467e433821664cdd2224aad8c89a625be1ad9)
+   License: GNU General Public License v3.0 or later (GPL-3.0-or-later) + MIT/Zlib/LGPL-2.1-or-later subcomponents
+
+3. Moonlight Android (https://github.com/moonlight-stream/moonlight-android)
+   Pinned Tag: v12.2
+   License: GNU General Public License v3.0 (GPL-3.0)
+
+4. RustDesk (https://github.com/rustdesk/rustdesk)
+   Pinned Tag: 1.5.3 (Short Commit: 95cca3f)
+   License: GNU Affero General Public License v3.0 (AGPL-3.0)
+
+5. Qt 6 Framework (The Qt Company)
+   License: GNU Lesser General Public License v3.0 (LGPL-3.0) — dynamically linked
+
+Corresponding source code and any patches under third_party/patches/ must accompany binary distributions in accordance with each upstream license. See LICENSES.md for compliance review notes.
