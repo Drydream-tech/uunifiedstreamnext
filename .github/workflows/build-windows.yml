@@ -1,0 +1,45 @@
+name: Build Windows Installer
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Qt 6 & Build Tools
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.7.2'
+          arch: 'win64_msvc2019_64'
+          modules: 'qtquickcontrols2'
+
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Configure & Build UnifiedStreamNext Core + UI
+        run: |
+          cmake -S . -B build/windows -G Ninja -DUSN_BUILD_WINDOWS_UI=ON
+          cmake --build build/windows
+          ctest --test-dir build/windows --output-on-failure
+
+      - name: Fetch Pinned Upstream Engines (Sunshine, Moonlight Qt, RustDesk)
+        shell: bash
+        run: |
+          chmod +x scripts/fetch_upstreams.sh
+          ./scripts/fetch_upstreams.sh
+
+      - name: Package Windows Installer (Inno Setup)
+        run: |
+          choco install innosetup -y
+          windeployqt --qmldir apps/windows/qml build/windows/apps/windows/UnifiedStreamNext.exe
+          iscc packaging/windows/UnifiedStreamNext.iss
+
+      - name: Upload Windows Installer Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: UnifiedStreamNext-Windows-Setup
+          path: build/packaging/UnifiedStreamNext-Setup-*.exe
